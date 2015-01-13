@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<miabis xmlns="http://www.bbmri-eric.eu/miabis" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bbmri-eric.eu/miabis file:miabis.xsd">
+	<disease id="d1">
+		<ontology>SNOMED-CT</ontology>
+		<code>BIRTH</code>
+		<term>birth</term>
+		<description/>
+	</disease>
+	<samplecollection id="sc1">
+		<acronym>TEST</acronym>
+		<name>Test</name>
+		<description>Test sample collection</description>
+		<sex>male</sex>
+		<sex>female</sex>
+		<ageLow>1</ageLow>
+		<ageHigh>10</ageHigh>
+		<ageUnit>weeks</ageUnit>
+		<dataCategory>Biological samples</dataCategory>
+		<dataCategory>Medical records</dataCategory>
+		<materialType>DNA</materialType>
+		<materialType>Whole blood</materialType>
+		<storageTemperature>RT</storageTemperature>
+		<collectionType>Birth cohort</collectionType>
+		<disease id="d01">
+			<ontology>SNOMED-CT</ontology>
+			<code>BIRTH</code>
+			<term>birth</term>
+			<description/>
+		</disease>
+		<contact id="c01">
+			<zip>9700 RB</zip>
+			<city>Groningen</city>
+			<country>NL</country>
+		</contact>
+	</samplecollection>
+	<samplecollection id="sc2">
+		<acronym>TEST</acronym>
+		<name>Test</name>
+		<description>Test sample collection</description>
+		<sex>male</sex>
+		<ageLow>1</ageLow>
+		<ageHigh>10</ageHigh>
+		<ageUnit>weeks</ageUnit>
+		<dataCategory>Biological samples</dataCategory>
+		<dataCategory>Medical records</dataCategory>
+		<materialType>DNA</materialType>
+		<materialType>Whole blood</materialType>
+		<storageTemperature>RT</storageTemperature>
+		<collectionType>Birth cohort</collectionType>
+		<disease id="d02">
+			<ontology>SNOMED-CT</ontology>
+			<code>BIRTH</code>
+			<term>birth</term>
+			<description/>
+		</disease>
+		<contact id="c02">
+			<firstname>David</firstname>
+			<lastname>van Enckevort</lastname>
+			<email>david.van.enckevort@umcg.nl</email>
+		</contact>
+	</samplecollection>
+	<samplecollection id="sc3">
+		<acronym>TEST</acronym>
+		<name>Test</name>
+		<description>Test sample collection</description>
+		<sex>male</sex>
+		<ageLow>1</ageLow>
+		<ageHigh>10</ageHigh>
+		<ageUnit>weeks</ageUnit>
+		<dataCategory>Biological samples</dataCategory>
+		<dataCategory>Medical records</dataCategory>
+		<materialType>DNA</materialType>
+		<materialType>Whole blood</materialType>
+		<storageTemperature>RT</storageTemperature>
+		<collectionType>Birth cohort</collectionType>
+		<disease>d1</disease>
+		<contact id="c03">
+			<firstname>David</firstname>
+			<lastname>van Enckevort</lastname>
+		</contact>
+	</samplecollection>
+</miabis>

@@ -1,0 +1,768 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.bbmri-eric.eu/miabis"
+           xmlns:m="http://www.bbmri-eric.eu/miabis"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.bbmri-eric.eu/miabis"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
+
+    <xs:simpleType name="String">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Age">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:maxInclusive value="54750">
+                <xs:annotation>
+                    <xs:documentation>
+                        The maximum value is limited to 150 years expressed in
+                        days.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:maxInclusive>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="IDREF">
+        <xs:restriction base="xs:IDREF"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="ID">
+        <xs:restriction base="xs:ID"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="CountryCode">
+        <xs:annotation>
+            <xs:documentation>
+                Datatype for the Country code. This should be a two-letter code
+                as defined in ISO 3166-1 alpha-2.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:ID">
+            <xs:pattern value="[A-Z]{2}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="URL">
+        <xs:annotation>
+            <xs:documentation>
+                Datatype for an URL. The value should be a qualified URL
+                including protocol, hostname and optionally a path and
+                parameters, e.g.:
+                http://bbmri-wiki.wikidot.com/en:dataset-biobank
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="Email">
+        <xs:annotation>
+            <xs:documentation>
+                Datatype for an Email address. The value should be an address
+                consisting of a local part and a domain part as defined in
+                RFC 2822, e.g.:
+                info@bbmri-eric.eu
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Description">
+        <xs:annotation>
+            <xs:documentation>
+                Datatype for the description. The description should be one
+                or more paragraphs of text limited to a maximum of 2000
+                characters.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="2000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TimeUnit">
+        <xs:annotation>
+            <xs:documentation>
+                Enumeration of the valid units of time to express the age of
+                a participant at the time of sampling.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="year">
+                <xs:annotation>
+                    <xs:documentation>
+                        The period of time that it takes for Earth to make a
+                        complete revolution around the sun, approximately 365
+                        days.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="week">
+                <xs:annotation>
+                    <xs:documentation>
+                        Any period of seven consecutive days.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="day">
+                <xs:annotation>
+                    <xs:documentation>
+                        The time for Earth to make a complete rotation on its
+                        axis; ordinarily divided into twenty-four hours.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DataCategory">
+        <xs:annotation>
+            <xs:documentation>
+                Enumeration of the valid data catagories from which data is
+                available in a sample collection or study.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="String">
+            <xs:enumeration value="Biological samples">
+                <xs:annotation>
+                    <xs:documentation>
+                        Biological samples are collected from the participants
+                        in the sample collection/study.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Survey data">
+                <xs:annotation>
+                    <xs:documentation>
+                        Information from surveys are collected from the
+                        participants.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Imaging data">
+                <xs:annotation>
+                    <xs:documentation>
+                        Imaging data are collected from the participants.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Medical records">
+                <xs:annotation>
+                    <xs:documentation>
+                        Medical records are collected from the participants.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="National registries">
+                <xs:annotation>
+                    <xs:documentation>
+                        Register data is associated to the participants.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Genealogical records">
+                <xs:annotation>
+                    <xs:documentation>
+                        Genealogical records are associated with the
+                        participants.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Physiological/Biochemical measurements">
+                <xs:annotation>
+                    <xs:documentation>
+                        Measurements/tests performed during a clinical/home
+                        visit and from samples taken from donor.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Other">
+                <xs:annotation>
+                    <xs:documentation>
+                        Other.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MaterialType">
+        <xs:annotation>
+            <xs:documentation>
+                Enumeration of the valid types of biospecimens in a sample
+                collection or study.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="String">
+            <xs:enumeration value="DNA">
+                <xs:annotation>
+                    <xs:documentation>
+                        A long linear double-stranded polymer formed from
+                        nucleotides attached to a deoxyribose backbone and found
+                        in the nucleus of a cell; associated with the
+                        transmission of genetic information.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="cDNA/mRNA">
+                <xs:annotation>
+                    <xs:documentation>
+                        Single-stranded DNA that is complementary to messenger
+                        RNA or DNA that has been synthesized from messenger RNA
+                        by reverse transcriptase/A class of RNA molecule
+                        containing protein-coding information in its nucleotide
+                        sequence that can be translated into the amino acid
+                        sequence of a protein.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="microRNA">
+                <xs:annotation>
+                    <xs:documentation>
+                        A type of RNA found in cells and in blood. MicroRNAs are
+                        smaller than many other types of RNA and can bind to
+                        messenger RNAs (mRNAs) to block them from making
+                        proteins. MicroRNAs are being studied in the diagnosis
+                        (NCI) and treatment of cancer.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Whole blood">
+                <xs:annotation>
+                    <xs:documentation>
+                        Blood that has not been separated into its various
+                        components; blood that has not been modified except for
+                        the addition of an anticoagulant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Peripheral blood cells">
+                <xs:annotation>
+                    <xs:documentation>
+                        A general term describing the three cellular components
+                        of blood (white blood cells, red blood cells, and
+                        platelets), all which are made in the bone marrow.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Plasma">
+                <xs:annotation>
+                    <xs:documentation>
+                        Plasma is the fluid (acellular) portion of the
+                        circulating blood, as distinguished from the serum that
+                        is the fluid portion of the blood obtained by removal of
+                        the fibrin clot and blood cells after coagulation.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Serum">
+                <xs:annotation>
+                    <xs:documentation>
+                        The clear portion of the blood that remains after the
+                        removal of the blood cells and the clotting proteins.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Tissue, cryo preserved">
+                <xs:annotation>
+                    <xs:documentation>
+                        An anatomical structure consisting of similarly
+                        specialized cells and intercellular matrix, aggregated
+                        according to genetically determined spatial
+                        relationships, performing a specific function.
+                        Preserved by freezing in liquid nitrogen.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Tissue, paraffin preserved">
+                <xs:annotation>
+                    <xs:documentation>
+                        Tissue that is preserved and embedded in paraffin.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Cell lines">
+                <xs:annotation>
+                    <xs:documentation>
+                        Cells of a single type (human, animal, or plant) that
+                        have been adapted to grow continuously in the laboratory
+                        and are used in research.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Urine">
+                <xs:annotation>
+                    <xs:documentation>
+                        The fluid that is excreted by the kidneys. It is stored
+                        in the bladder and discharged through the urethra.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Saliva">
+                <xs:annotation>
+                    <xs:documentation>
+                        A clear liquid secreted into the mouth by the salivary
+                        glands and mucous glands of the mouth; moistens the
+                        mouth and starts the digestion of starches.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Faeces">
+                <xs:annotation>
+                    <xs:documentation>
+                        The material discharged from the bowel during
+                        defecation. It consists of undigested food, intestinal
+                        mucus, epithelial cells, and bacteria.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Pathogen">
+                <xs:annotation>
+                    <xs:documentation>
+                        A biological agent causing disease; a disease producer
+                        e.g. virus, bacterium, prion, other microorganism etc.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Other">
+                <xs:annotation>
+                    <xs:documentation>
+                        Any other type of material taken from a biological
+                        entity, e.g. amniotic fluid, cerebrospinal fluid (CSV),
+                        mitochondrial RNA.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Temperature">
+        <xs:annotation>
+            <xs:documentation>
+                Enumeration of the valid storage temperatures in a sample
+                collection or study.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="String">
+            <xs:enumeration value="RT">
+                <xs:annotation>
+                    <xs:documentation>
+                        Storage at room temperature.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2&#xB0;C to 10&#xB0;C">
+                <xs:annotation>
+                    <xs:documentation>
+                        Storage between 2&#xB0;C and 10&#xB0;C.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="-18&#xB0;C to -35&#xB0;C">
+                <xs:annotation>
+                    <xs:documentation>
+                        Storage between -18&#xB0;C and -35&#xB0;C.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="-60&#xB0;C to -85&#xB0;C">
+                <xs:annotation>
+                    <xs:documentation>
+                        Storage between -60&#xB0;C and -85&#xB0;C.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LN">
+                <xs:annotation>
+                    <xs:documentation>
+                        Storage in liquid nitrogen, -150&#xB0;C to -196&#xB0;C.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Other">
+                <xs:annotation>
+                    <xs:documentation>
+                        Any other temperature or long time storage information.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Sex">
+        <xs:annotation>
+            <xs:documentation>
+                Enumeration of the valid sexes of the participants in a
+                sample collection or study.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="String">
+            <xs:enumeration value="Male">
+                <xs:annotation>
+                    <xs:documentation>
+                        Male.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Female">
+                <xs:annotation>
+                    <xs:documentation>
+                        Female.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Undifferentiated">
+                <xs:annotation>
+                    <xs:documentation>
+                        Undifferentiated, the gender could not be uniquely
+                        identified such as hermaprhodite.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Unknown">
+                <xs:annotation>
+                    <xs:documentation>
+                        A proper value is applicable but not known.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CollectionType">
+        <xs:annotation>
+            <xs:documentation>
+                Enumeration of the types collections.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="String">
+            <xs:enumeration value="Case-control">
+                <xs:annotation>
+                    <xs:documentation>
+                        A case-control study design compares two groups of
+                        subjects: those with the disease or condition under
+                        study (cases) and a very similar group of subjects who
+                        do not have the disease or condition (controls).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Cohort">
+                <xs:annotation>
+                    <xs:documentation>
+                        A form of longitudinal study for the analysis of risk
+                        factors following a group of people who do not have a
+                        disease, and uses correlations to determine the absolute
+                        risk of subject contraction.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Cross-sectional">
+                <xs:annotation>
+                    <xs:documentation>
+                        A type of observational study that involves data
+                        collection from a population, or a representative
+                        subset, at one specific point in time.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Longitudinal">
+                <xs:annotation>
+                    <xs:documentation>
+                        Research studies involving repeated observations of the
+                        same entity over time. In the biobank context,
+                        longitudinal studies sample a group of people in a given
+                        time period, and study them at intervals by the
+                        acquisition and analyses of data and/or samples over
+                        time.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Twin-study">
+                <xs:annotation>
+                    <xs:documentation>
+                        Twin studies measure the contribution of genetics
+                        (as opposed to environment) to a given trait or
+                        condition of interest.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Quality control">
+                <xs:annotation>
+                    <xs:documentation>
+                        A quality control testing study design type is where
+                        some aspect of the experiment is quality controlled for
+                        the purposes of quality assurance.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Population-based">
+                <xs:annotation>
+                    <xs:documentation>
+                        Study done at the population level or among the
+                        population groups, generally to find the cause,
+                        incidence or spread of the disease or to see the
+                        response to the treatment, nutrition or environment.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Disease specific">
+                <xs:annotation>
+                    <xs:documentation>
+                        A study or biobank for which material and information is
+                        collected from subjects that have already developed a
+                        particular disease.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Birth cohort">
+                <xs:annotation>
+                    <xs:documentation>
+                        A cohort study for which the subjects are followed from
+                        the time of birth usually including information about
+                        gestation and follow up.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Other">
+                <xs:annotation>
+                    <xs:documentation>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="InclusionCriterion">
+        <xs:annotation>
+            <xs:documentation>
+                Enumeration of the criteria used for inclusion of (samples of)
+                a participant in a study.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Health status"/>
+            <xs:enumeration value="Hospital patient"/>
+            <xs:enumeration value="Use of medication"/>
+            <xs:enumeration value="Gravidity"/>
+            <xs:enumeration value="Age group"/>
+            <xs:enumeration value="Familial status"/>
+            <xs:enumeration value="Sex"/>
+            <xs:enumeration value="Country of residence"/>
+            <xs:enumeration value="Ethnic origin"/>
+            <xs:enumeration value="Population representative sampling"/>
+            <xs:enumeration value="Lifestyle/Exposure"/>
+            <xs:enumeration value="Other"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="OmicsTechnology">
+        <xs:annotation>
+            <xs:documentation>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Genomics">
+                <xs:annotation>
+                    <xs:documentation>
+                        The study of an organism's entire genome.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Transcriptomics">
+                <xs:annotation>
+                    <xs:documentation>
+                        The study of the transcription, i.e., the expression
+                        levels of mRNAs in a given organism, tissue, etc. (under
+                        a specific set of conditions).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Proteomics">
+                <xs:annotation>
+                    <xs:documentation>
+                        The study of proteins, their structures, and their
+                        functions, namely the study of the proteome.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Metabolomics">
+                <xs:annotation>
+                    <xs:documentation>
+                        The identification, quantification, and characterization
+                        of the small molecule metabolites in the metabolome
+                        (i.e., the set of all small molecule metabolites found
+                        in a specific cell, organ, or organism).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Other"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Vendor">
+        <xs:annotation>
+            <xs:documentation>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Affymetrix">
+                <xs:annotation>
+                    <xs:documentation>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Life Technologies">
+                <xs:annotation>
+                    <xs:documentation>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Roche Applied Science">
+                <xs:annotation>
+                    <xs:documentation>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Illumina">
+                <xs:annotation>
+                    <xs:documentation>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Other">
+                <xs:annotation>
+                    <xs:documentation>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Country">
+        <xs:sequence>
+            <xs:element name="name" type="String"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="CountryCode"/>
+    </xs:complexType>
+
+    <xs:complexType name="Disease">
+        <xs:sequence>
+            <xs:element name="ontology" type="String"/>
+            <xs:element name="version" type="String" minOccurs="0"/>
+            <xs:element name="code" type="String"/>
+            <xs:element name="term" type="String" minOccurs="0"/>
+            <xs:element name="description" type="Description" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="Contact">
+        <xs:sequence>
+            <xs:sequence minOccurs="0">
+                <xs:element name="firstname" type="String"/>
+                <xs:element name="lastname" type="String"/>
+            </xs:sequence>
+            <xs:element name="phone" type="String" minOccurs="0"/>
+            <xs:element name="email" type="Email" minOccurs="0"/>
+            <xs:sequence minOccurs="0">
+                <xs:element name="zip" type="String"/>
+                <xs:element name="city" type="String"/>
+                <xs:element name="country" type="IDREF"/>
+            </xs:sequence>
+        </xs:sequence>
+        <xs:attribute name="id" use="required" type="ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="JuristicPerson">
+        <xs:sequence>
+            <xs:element name="name" type="String"/>
+            <xs:sequence minOccurs="0">
+                <xs:element name="address" type="String"/>
+                <xs:element name="city" type="String"/>
+                <xs:element name="country" type="IDREF"/>
+            </xs:sequence>
+            <xs:element name="url" type="URL"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Biobank">
+        <xs:sequence>
+            <xs:element name="acronym" type="String"/>
+            <xs:element name="name" type="String"/>
+            <xs:element name="url" type="String"/>
+            <xs:element name="juristicperson" type="IDREF"/>
+            <xs:element name="country" type="IDREF"/>
+            <xs:element name="contactinformation" type="IDREF"/>
+            <xs:element name="description" type="Description"/>
+        </xs:sequence>
+        <xs:attribute name="id" use="required" type="ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="Study">
+        <xs:sequence>
+            <xs:element name="name" type="String"/>
+            <xs:element name="description" type="Description"/>
+            <xs:element name="principalInvestigator" type="String"/>
+            <xs:element name="contact" type="Contact"/>
+            <xs:element name="design" type="IDREF" maxOccurs="unbounded"/>
+            <xs:element name="sex" type="Sex" maxOccurs="unbounded"/>
+            <xs:element name="ageLow" type="Age"/>
+            <xs:element name="ageHigh" type="Age"/>
+            <xs:element name="ageUnit" type="TimeUnit"/>
+            <xs:element name="dataCategory" type="DataCategory" maxOccurs="unbounded"/>
+            <xs:element name="materialType" type="MaterialType" maxOccurs="unbounded"/>
+            <xs:element name="participants" type="xs:positiveInteger"/>
+            <xs:element name="donors" type="xs:positiveInteger"/>
+            <xs:element name="inclusionCriterion" type="InclusionCriterion" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" use="required" type="ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="Omics">
+        <xs:sequence>
+            <xs:element name="technology" type="IDREF" maxOccurs="unbounded"/>
+            <xs:element name="vendor" type="IDREF" maxOccurs="unbounded"/>
+            <xs:element name="platform" type="String" maxOccurs="unbounded"/>
+            <xs:element name="rawData" type="xs:boolean"/>
+            <xs:element name="processedData" type="xs:boolean"/>
+            <xs:element name="rawDataURL" type="URL"/>
+            <xs:element name="processedDataURL" type="URL"/>
+            <xs:element name="analysisPipeline" type="String"/>
+        </xs:sequence>
+        <xs:attribute name="id" use="required" type="ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="SampleCollection">
+        <xs:sequence>
+            <xs:element name="acronym" type="String"/>
+            <xs:element name="name" type="String"/>
+            <xs:element name="description" type="Description"/>
+            <xs:element name="sex" type="Sex" maxOccurs="unbounded"/>
+            <xs:element name="ageLow" type="Age"/>
+            <xs:element name="ageHigh" type="Age"/>
+            <xs:element name="ageUnit" type="TimeUnit"/>
+            <xs:element name="dataCategory" type="DataCategory" maxOccurs="unbounded"/>
+            <xs:element name="materialType" type="MaterialType" maxOccurs="unbounded"/>
+            <xs:element name="storageTemperature" type="Temperature" maxOccurs="unbounded"/>
+            <xs:element name="collectionType" type="CollectionType" maxOccurs="unbounded"/>
+            <xs:element name="disease" type="IDREF" maxOccurs="unbounded"/>
+            <xs:element name="contact" type="Contact"/>
+        </xs:sequence>
+        <xs:attribute name="id" use="required" type="ID"/>
+    </xs:complexType>
+
+    <xs:element name="miabis">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="samplecollection" type="SampleCollection"/>
+                <xs:element name="disease" type="Disease"/>
+                <xs:element name="contact" type="Contact"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

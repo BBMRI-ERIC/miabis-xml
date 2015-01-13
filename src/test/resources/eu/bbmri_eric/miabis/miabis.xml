@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <miabis xmlns="http://www.bbmri-eric.eu/miabis" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bbmri-eric.eu/miabis file:miabis.xsd">
-	<disease id="d1">
+	<disease id="d01">
 		<ontology>SNOMED-CT</ontology>
 		<code>BIRTH</code>
 		<term>birth</term>
@@ -10,23 +10,18 @@
 		<acronym>TEST</acronym>
 		<name>Test</name>
 		<description>Test sample collection</description>
-		<sex>male</sex>
-		<sex>female</sex>
+		<sex>Male</sex>
+		<sex>Female</sex>
 		<ageLow>1</ageLow>
 		<ageHigh>10</ageHigh>
-		<ageUnit>weeks</ageUnit>
+		<ageUnit>week</ageUnit>
 		<dataCategory>Biological samples</dataCategory>
 		<dataCategory>Medical records</dataCategory>
 		<materialType>DNA</materialType>
 		<materialType>Whole blood</materialType>
 		<storageTemperature>RT</storageTemperature>
 		<collectionType>Birth cohort</collectionType>
-		<disease id="d01">
-			<ontology>SNOMED-CT</ontology>
-			<code>BIRTH</code>
-			<term>birth</term>
-			<description/>
-		</disease>
+                <disease>d01</disease>
 		<contact id="c01">
 			<zip>9700 RB</zip>
 			<city>Groningen</city>
@@ -37,22 +32,17 @@
 		<acronym>TEST</acronym>
 		<name>Test</name>
 		<description>Test sample collection</description>
-		<sex>male</sex>
+		<sex>Male</sex>
 		<ageLow>1</ageLow>
 		<ageHigh>10</ageHigh>
-		<ageUnit>weeks</ageUnit>
+		<ageUnit>week</ageUnit>
 		<dataCategory>Biological samples</dataCategory>
 		<dataCategory>Medical records</dataCategory>
 		<materialType>DNA</materialType>
 		<materialType>Whole blood</materialType>
 		<storageTemperature>RT</storageTemperature>
 		<collectionType>Birth cohort</collectionType>
-		<disease id="d02">
-			<ontology>SNOMED-CT</ontology>
-			<code>BIRTH</code>
-			<term>birth</term>
-			<description/>
-		</disease>
+                <disease>d01</disease>
 		<contact id="c02">
 			<firstname>David</firstname>
 			<lastname>van Enckevort</lastname>
@@ -63,10 +53,10 @@
 		<acronym>TEST</acronym>
 		<name>Test</name>
 		<description>Test sample collection</description>
-		<sex>male</sex>
+		<sex>Male</sex>
 		<ageLow>1</ageLow>
 		<ageHigh>10</ageHigh>
-		<ageUnit>weeks</ageUnit>
+		<ageUnit>week</ageUnit>
 		<dataCategory>Biological samples</dataCategory>
 		<dataCategory>Medical records</dataCategory>
 		<materialType>DNA</materialType>

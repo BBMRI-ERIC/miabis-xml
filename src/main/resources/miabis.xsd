@@ -653,17 +653,17 @@
         <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
-    <xs:complexType name="Miabis">
-        <xs:sequence>
-            <xs:element name="disease" type="Disease" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="contactInformation" type="ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="researchInformation" type="ResearchInformation" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="biobank" type="Biobank" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="samplecollection" type="SampleCollection" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="study" type="Study" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:element name="miabis" type="Miabis"/>
+    <xs:element name="miabis">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="disease" type="Disease" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="contactInformation" type="ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="researchInformation" type="ResearchInformation" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="biobank" type="Biobank" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="samplecollection" type="SampleCollection" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="study" type="Study" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
 </xs:schema>

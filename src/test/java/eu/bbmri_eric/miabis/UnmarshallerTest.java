@@ -35,11 +35,11 @@ public class UnmarshallerTest {
             for (Object o : miabis.getValue().getSamplecollection()) {
                 if (o instanceof SampleCollection) {
                     SampleCollection sc = (SampleCollection) o;
-                    assertNotNull(sc.getDiseases());
-                    assertFalse(sc.getDiseases().isEmpty());
+                    assertNotNull(sc.getDiseases(), "Diseases should not be null");
+                    assertFalse(sc.getDiseases().isEmpty(),"Diseases should not be empty.");
                     Disease disease = sc.getDiseases().get(0);
-                    assertNotNull(disease.getId());
-                    assertEquals(disease.getTerm(), "birth");
+                    assertNotNull(disease.getId(), "The disease ID should not be null");
+                    assertEquals(disease.getTerm(), "birth", "The disease term should match \"birth\"");
 
                 }
             }

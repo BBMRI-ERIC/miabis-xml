@@ -25,15 +25,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="IDREF">
-        <xs:restriction base="xs:IDREF"/>
-    </xs:simpleType>
-
-    <xs:simpleType name="ID">
-        <xs:restriction base="xs:ID"/>
-    </xs:simpleType>
-
-    <xs:simpleType name="CountryCode">
+    <xs:simpleType name="Country">
         <xs:annotation>
             <xs:documentation>
                 Datatype for the Country code. This should be a two-letter code
@@ -559,96 +551,6 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="OmicsTechnology">
-        <xs:annotation>
-            <xs:documentation>
-            </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="Genomics">
-                <xs:annotation>
-                    <xs:documentation>
-                        The study of an organism's entire genome.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Transcriptomics">
-                <xs:annotation>
-                    <xs:documentation>
-                        The study of the transcription, i.e., the expression
-                        levels of mRNAs in a given organism, tissue, etc. (under
-                        a specific set of conditions).
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Proteomics">
-                <xs:annotation>
-                    <xs:documentation>
-                        The study of proteins, their structures, and their
-                        functions, namely the study of the proteome.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Metabolomics">
-                <xs:annotation>
-                    <xs:documentation>
-                        The identification, quantification, and characterization
-                        of the small molecule metabolites in the metabolome
-                        (i.e., the set of all small molecule metabolites found
-                        in a specific cell, organ, or organism).
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Other"/>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="Vendor">
-        <xs:annotation>
-            <xs:documentation>
-            </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="Affymetrix">
-                <xs:annotation>
-                    <xs:documentation>
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Life Technologies">
-                <xs:annotation>
-                    <xs:documentation>
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Roche Applied Science">
-                <xs:annotation>
-                    <xs:documentation>
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Illumina">
-                <xs:annotation>
-                    <xs:documentation>
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="Other">
-                <xs:annotation>
-                    <xs:documentation>
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:complexType name="Country">
-        <xs:sequence>
-            <xs:element name="name" type="String"/>
-        </xs:sequence>
-        <xs:attribute name="id" type="CountryCode"/>
-    </xs:complexType>
-
     <xs:complexType name="Disease">
         <xs:sequence>
             <xs:element name="ontology" type="String"/>
@@ -657,10 +559,10 @@
             <xs:element name="term" type="String" minOccurs="0"/>
             <xs:element name="description" type="Description" minOccurs="0"/>
         </xs:sequence>
-        <xs:attribute name="id" type="ID"/>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
-    <xs:complexType name="Contact">
+    <xs:complexType name="ContactInformation">
         <xs:sequence>
             <xs:sequence minOccurs="0">
                 <xs:element name="firstname" type="String"/>
@@ -669,100 +571,99 @@
             <xs:element name="phone" type="String" minOccurs="0"/>
             <xs:element name="email" type="Email" minOccurs="0"/>
             <xs:sequence minOccurs="0">
+                <xs:element name="address" type="String"/>
                 <xs:element name="zip" type="String"/>
                 <xs:element name="city" type="String"/>
-                <xs:element name="country" type="IDREF"/>
+                <xs:element name="country" type="xs:IDREF"/>
             </xs:sequence>
         </xs:sequence>
-        <xs:attribute name="id" use="required" type="ID"/>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
-    <xs:complexType name="JuristicPerson">
-        <xs:sequence>
-            <xs:element name="name" type="String"/>
-            <xs:sequence minOccurs="0">
-                <xs:element name="address" type="String"/>
-                <xs:element name="city" type="String"/>
-                <xs:element name="country" type="IDREF"/>
-            </xs:sequence>
-            <xs:element name="url" type="URL"/>
-        </xs:sequence>
+    <xs:complexType name="ResearchInformation">
+        <xs:complexContent>
+            <xs:extension base="ContactInformation">
+                <xs:sequence>
+                    <xs:element name="juristicPerson" type="String" minOccurs="0"/>
+                    <xs:element name="department" type="String" minOccurs="0"/>
+                    <xs:element name="ORCID" type="URL" minOccurs="0"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="Biobank">
         <xs:sequence>
+            <xs:element name="biobankID" type="String"/>
             <xs:element name="acronym" type="String"/>
             <xs:element name="name" type="String"/>
-            <xs:element name="url" type="String"/>
-            <xs:element name="juristicperson" type="IDREF"/>
-            <xs:element name="country" type="IDREF"/>
-            <xs:element name="contactinformation" type="IDREF"/>
+            <xs:element name="url" type="URL"/>
+            <xs:element name="juristicPerson" type="String"/>
+            <xs:element name="country" type="Country"/>
+            <xs:element name="contactInformation" type="xs:IDREFS"/>
             <xs:element name="description" type="Description"/>
+            <xs:element name="sampleCollections" type="xs:IDREFS" minOccurs="0" />
+            <xs:element name="studies" type="xs:IDREFS" minOccurs="0" />
         </xs:sequence>
-        <xs:attribute name="id" use="required" type="ID"/>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
     <xs:complexType name="Study">
         <xs:sequence>
+            <xs:element name="studyID" type="String"/>
             <xs:element name="name" type="String"/>
             <xs:element name="description" type="Description"/>
-            <xs:element name="principalInvestigator" type="String"/>
-            <xs:element name="contact" type="Contact"/>
-            <xs:element name="design" type="IDREF" maxOccurs="unbounded"/>
-            <xs:element name="sex" type="Sex" maxOccurs="unbounded"/>
+            <xs:element name="principalInvestigator" type="String" maxOccurs="unbounded"/>
+            <xs:element name="contactInformation" type="xs:IDREFS"/>
+            <xs:element name="studyDesign" type="CollectionType" maxOccurs="10"/>
+            <xs:element name="sex" type="Sex" maxOccurs="4"/>
             <xs:element name="ageLow" type="Age"/>
             <xs:element name="ageHigh" type="Age"/>
             <xs:element name="ageUnit" type="TimeUnit"/>
-            <xs:element name="dataCategory" type="DataCategory" maxOccurs="unbounded"/>
-            <xs:element name="materialType" type="MaterialType" maxOccurs="unbounded"/>
-            <xs:element name="participants" type="xs:positiveInteger"/>
-            <xs:element name="donors" type="xs:positiveInteger"/>
-            <xs:element name="inclusionCriterion" type="InclusionCriterion" maxOccurs="unbounded"/>
+            <xs:element name="dataCategory" type="DataCategory" maxOccurs="8"/>
+            <xs:element name="materialType" type="MaterialType" maxOccurs="15"/>
+            <xs:element name="totalNumberOfParticipants" type="xs:positiveInteger"/>
+            <xs:element name="totalNumberOfDonors" type="xs:positiveInteger"/>
+            <xs:element name="inclusionCriterion" type="InclusionCriterion" maxOccurs="12"/>
+            <xs:element name="biobanks" type="xs:IDREFS" minOccurs="0" />
+            <xs:element name="sampleCollections" type="xs:IDREFS" minOccurs="0" />
         </xs:sequence>
-        <xs:attribute name="id" use="required" type="ID"/>
-    </xs:complexType>
-
-    <xs:complexType name="Omics">
-        <xs:sequence>
-            <xs:element name="technology" type="IDREF" maxOccurs="unbounded"/>
-            <xs:element name="vendor" type="IDREF" maxOccurs="unbounded"/>
-            <xs:element name="platform" type="String" maxOccurs="unbounded"/>
-            <xs:element name="rawData" type="xs:boolean"/>
-            <xs:element name="processedData" type="xs:boolean"/>
-            <xs:element name="rawDataURL" type="URL"/>
-            <xs:element name="processedDataURL" type="URL"/>
-            <xs:element name="analysisPipeline" type="String"/>
-        </xs:sequence>
-        <xs:attribute name="id" use="required" type="ID"/>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
     <xs:complexType name="SampleCollection">
         <xs:sequence>
+            <xs:element name="sampleCollectionID" type="String"/>
             <xs:element name="acronym" type="String"/>
             <xs:element name="name" type="String"/>
             <xs:element name="description" type="Description"/>
-            <xs:element name="sex" type="Sex" maxOccurs="unbounded"/>
+            <xs:element name="sex" type="Sex" maxOccurs="4"/>
             <xs:element name="ageLow" type="Age"/>
             <xs:element name="ageHigh" type="Age"/>
             <xs:element name="ageUnit" type="TimeUnit"/>
-            <xs:element name="dataCategory" type="DataCategory" maxOccurs="unbounded"/>
-            <xs:element name="materialType" type="MaterialType" maxOccurs="unbounded"/>
-            <xs:element name="storageTemperature" type="Temperature" maxOccurs="unbounded"/>
-            <xs:element name="collectionType" type="CollectionType" maxOccurs="unbounded"/>
-            <xs:element name="disease" type="IDREF" maxOccurs="unbounded"/>
-            <xs:element name="contact" type="Contact"/>
+            <xs:element name="dataCategory" type="DataCategory" maxOccurs="8"/>
+            <xs:element name="materialType" type="MaterialType" maxOccurs="15"/>
+            <xs:element name="storageTemperature" type="Temperature" maxOccurs="6"/>
+            <xs:element name="collectionType" type="CollectionType" maxOccurs="10"/>
+            <xs:element name="diseases" type="xs:IDREFS"/>
+            <xs:element name="contactInformation" type="xs:IDREFS"/>
+            <xs:element name="biobanks" type="xs:IDREFS" minOccurs="0" />
+            <xs:element name="studies" type="xs:IDREFS" minOccurs="0" />
         </xs:sequence>
-        <xs:attribute name="id" use="required" type="ID"/>
+        <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
-    <xs:element name="miabis">
-        <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-                <xs:element name="samplecollection" type="SampleCollection"/>
-                <xs:element name="disease" type="Disease"/>
-                <xs:element name="contact" type="Contact"/>
-            </xs:choice>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="Miabis">
+        <xs:sequence>
+            <xs:element name="disease" type="Disease" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="contactInformation" type="ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="researchInformation" type="ResearchInformation" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="biobank" type="Biobank" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="samplecollection" type="SampleCollection" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="study" type="Study" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="miabis" type="Miabis"/>
 
 </xs:schema>

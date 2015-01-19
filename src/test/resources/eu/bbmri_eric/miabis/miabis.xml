@@ -21,7 +21,7 @@
 		<materialType>Whole blood</materialType>
 		<storageTemperature>RT</storageTemperature>
 		<collectionType>Birth cohort</collectionType>
-                <disease>d01</disease>
+                <diseases>d01</diseases>
 		<contact id="c01">
 			<zip>9700 RB</zip>
 			<city>Groningen</city>
@@ -42,7 +42,7 @@
 		<materialType>Whole blood</materialType>
 		<storageTemperature>RT</storageTemperature>
 		<collectionType>Birth cohort</collectionType>
-                <disease>d01</disease>
+                <diseases>d01</diseases>
 		<contact id="c02">
 			<firstname>David</firstname>
 			<lastname>van Enckevort</lastname>
@@ -63,7 +63,7 @@
 		<materialType>Whole blood</materialType>
 		<storageTemperature>RT</storageTemperature>
 		<collectionType>Birth cohort</collectionType>
-		<disease>d1</disease>
+                <diseases>d01</diseases>
 		<contact id="c03">
 			<firstname>David</firstname>
 			<lastname>van Enckevort</lastname>

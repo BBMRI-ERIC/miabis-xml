@@ -12,13 +12,14 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-import static junit.framework.Assert.assertFalse;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.Test;
 
 /**
  *
- * @author David van Enckevort <david@allthingsdigital.nl>
+ * @author <a href="mailto:david.van.enckevort@dtls.nl">David van Enckevort</a>
  */
 public class UnmarshallerTest {
     @Test
@@ -30,8 +31,18 @@ public class UnmarshallerTest {
             assertNotNull(xml);
             JAXBElement<Miabis> miabis = unmarshaller.unmarshal(new StreamSource(xml), Miabis.class);
             assertNotNull(miabis);
-            assertFalse(miabis.getValue().getSamplecollectionOrDiseaseOrContact().isEmpty());
+            assertFalse(miabis.getValue().getSamplecollection().isEmpty());
+            for (Object o : miabis.getValue().getSamplecollection()) {
+                if (o instanceof SampleCollection) {
+                    SampleCollection sc = (SampleCollection) o;
+                    assertNotNull(sc.getDiseases());
+                    assertFalse(sc.getDiseases().isEmpty());
+                    Disease disease = sc.getDiseases().get(0);
+                    assertNotNull(disease.getId());
+                    assertEquals(disease.getTerm(), "birth");
 
+                }
+            }
         }
 
     }

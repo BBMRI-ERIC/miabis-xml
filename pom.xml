@@ -31,7 +31,17 @@
                             </catalogResolver>
                             <args>
                                 <arg>-no-header</arg>
+                                <arg>-XtoString</arg>
+                                <arg>-Xequals</arg>
+                                <arg>-XhashCode</arg>
                             </args>
+                            <plugins>
+                                <plugin>
+                                    <groupId>org.jvnet.jaxb2_commons</groupId>
+                                    <artifactId>jaxb2-basics</artifactId>
+                                    <version>0.9.2</version>
+                                </plugin>
+                            </plugins>
                         </configuration>
                     </execution>
                 </executions>
@@ -58,6 +68,11 @@
         </plugins>
     </reporting>
     <dependencies>
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-basics-runtime</artifactId>
+            <version>0.9.2</version>
+        </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>

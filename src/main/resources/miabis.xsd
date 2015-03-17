@@ -8,10 +8,6 @@
 
     <xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
 
-    <xs:simpleType name="String">
-        <xs:restriction base="xs:string"/>
-    </xs:simpleType>
-
     <xs:simpleType name="Age">
         <xs:restriction base="xs:positiveInteger">
             <xs:maxInclusive value="54750">
@@ -46,7 +42,9 @@
                 http://bbmri-wiki.wikidot.com/en:dataset-biobank
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:string"/>
+        <xs:restriction base="xs:anyURI">
+            <xs:pattern value="^(http|https)://.+"/>
+        </xs:restriction>
     </xs:simpleType>
 
     <xs:simpleType name="Email">
@@ -63,7 +61,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="Description">
+    <xs:simpleType name="text">
         <xs:annotation>
             <xs:documentation>
                 Datatype for the description. The description should be one
@@ -118,7 +116,7 @@
                 available in a sample collection or study.
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="String">
+        <xs:restriction base="xs:string">
             <xs:enumeration value="Biological samples">
                 <xs:annotation>
                     <xs:documentation>
@@ -189,7 +187,7 @@
                 collection or study.
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="String">
+        <xs:restriction base="xs:string">
             <xs:enumeration value="DNA">
                 <xs:annotation>
                     <xs:documentation>
@@ -339,7 +337,7 @@
                 collection or study.
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="String">
+        <xs:restriction base="xs:string">
             <xs:enumeration value="RT">
                 <xs:annotation>
                     <xs:documentation>
@@ -392,7 +390,7 @@
                 sample collection or study.
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="String">
+        <xs:restriction base="xs:string">
             <xs:enumeration value="Male">
                 <xs:annotation>
                     <xs:documentation>
@@ -431,7 +429,7 @@
                 Enumeration of the types collections.
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="String">
+        <xs:restriction base="xs:string">
             <xs:enumeration value="Case-control">
                 <xs:annotation>
                     <xs:documentation>
@@ -528,7 +526,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="InclusionCriterion">
+    <xs:simpleType name="InclusionCriteria">
         <xs:annotation>
             <xs:documentation>
                 Enumeration of the criteria used for inclusion of (samples of)
@@ -536,45 +534,204 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-            <xs:enumeration value="Health status"/>
-            <xs:enumeration value="Hospital patient"/>
-            <xs:enumeration value="Use of medication"/>
-            <xs:enumeration value="Gravidity"/>
-            <xs:enumeration value="Age group"/>
-            <xs:enumeration value="Familial status"/>
-            <xs:enumeration value="Sex"/>
-            <xs:enumeration value="Country of residence"/>
-            <xs:enumeration value="Ethnic origin"/>
-            <xs:enumeration value="Population representative sampling"/>
-            <xs:enumeration value="Lifestyle/Exposure"/>
-            <xs:enumeration value="Other"/>
+            <xs:enumeration value="Health status">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Hospital patient">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Use of medication">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Gravidity">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Age group">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Familial status">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Sex">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Country of residence">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Ethnic origin">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Population representative sampling">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Lifestyle/Exposure">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Other">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="Disease">
+    <xs:complexType name="OntologyTerm">
         <xs:sequence>
-            <xs:element name="ontology" type="String"/>
-            <xs:element name="version" type="String" minOccurs="0"/>
-            <xs:element name="code" type="String"/>
-            <xs:element name="term" type="String" minOccurs="0"/>
-            <xs:element name="description" type="Description" minOccurs="0"/>
+            <xs:element name="ontology" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="version" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="code" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+
+    <xs:complexType name="Disease">
+        <xs:complexContent>
+            <xs:extension base="OntologyTerm">
+                <xs:sequence>
+                    <xs:element name="freeText" type="text" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>
+                                MIABIS-:
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="ContactInformation">
         <xs:sequence>
             <xs:sequence minOccurs="0">
-                <xs:element name="firstname" type="String"/>
-                <xs:element name="lastname" type="String"/>
+                <xs:element name="firstname" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="lastname" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
-            <xs:element name="phone" type="String" minOccurs="0"/>
-            <xs:element name="email" type="Email" minOccurs="0"/>
+            <xs:element name="phone" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="email" type="Email" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:sequence minOccurs="0">
-                <xs:element name="address" type="String"/>
-                <xs:element name="zip" type="String"/>
-                <xs:element name="city" type="String"/>
-                <xs:element name="country" type="xs:IDREF"/>
+                <xs:element name="address" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="zip" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="city" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="country" type="xs:IDREF">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
@@ -584,9 +741,27 @@
         <xs:complexContent>
             <xs:extension base="ContactInformation">
                 <xs:sequence>
-                    <xs:element name="juristicPerson" type="String" minOccurs="0"/>
-                    <xs:element name="department" type="String" minOccurs="0"/>
-                    <xs:element name="ORCID" type="URL" minOccurs="0"/>
+                    <xs:element name="juristicPerson" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>
+                                MIABIS-:
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="department" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>
+                                MIABIS-:
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ORCID" type="URL" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>
+                                MIABIS-:
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -594,74 +769,416 @@
 
     <xs:complexType name="Biobank">
         <xs:sequence>
-            <xs:element name="biobankID" type="String"/>
-            <xs:element name="acronym" type="String"/>
-            <xs:element name="name" type="String"/>
-            <xs:element name="url" type="URL"/>
-            <xs:element name="juristicPerson" type="String"/>
-            <xs:element name="country" type="Country"/>
-            <xs:element name="contactInformation" type="xs:IDREFS"/>
-            <xs:element name="description" type="Description"/>
-            <xs:element name="sampleCollections" type="xs:IDREFS" minOccurs="0" />
-            <xs:element name="studies" type="xs:IDREFS" minOccurs="0" />
+            <xs:element name="biobankID" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="acronym" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="url" type="URL">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="juristicPerson" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="country" type="Country">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="contactInformation" type="xs:IDREFS">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="text">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sampleCollections" type="xs:IDREFS" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="studies" type="xs:IDREFS" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
     <xs:complexType name="Study">
         <xs:sequence>
-            <xs:element name="studyID" type="String"/>
-            <xs:element name="name" type="String"/>
-            <xs:element name="description" type="Description"/>
-            <xs:element name="principalInvestigator" type="String" maxOccurs="unbounded"/>
-            <xs:element name="contactInformation" type="xs:IDREFS"/>
-            <xs:element name="studyDesign" type="CollectionType" maxOccurs="10"/>
-            <xs:element name="sex" type="Sex" maxOccurs="4"/>
-            <xs:element name="ageLow" type="Age"/>
-            <xs:element name="ageHigh" type="Age"/>
-            <xs:element name="ageUnit" type="TimeUnit"/>
-            <xs:element name="dataCategory" type="DataCategory" maxOccurs="8"/>
-            <xs:element name="materialType" type="MaterialType" maxOccurs="15"/>
-            <xs:element name="totalNumberOfParticipants" type="xs:positiveInteger"/>
-            <xs:element name="totalNumberOfDonors" type="xs:positiveInteger"/>
-            <xs:element name="inclusionCriterion" type="InclusionCriterion" maxOccurs="12"/>
-            <xs:element name="biobanks" type="xs:IDREFS" minOccurs="0" />
-            <xs:element name="sampleCollections" type="xs:IDREFS" minOccurs="0" />
+            <xs:element name="studyID" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-23: The unique ID or acronym of the study.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-24: The name of the study in English.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="text">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-25: A description of the study aim.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="principalInvestigator" type="xs:string" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-26: The name of the person responsible for the
+                        study e.g. the principal investigator
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="contactInformation" type="xs:IDREFS">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-27: Contact information to the contact person
+                        for the study.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="studyDesign" type="CollectionType" maxOccurs="10">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-28: The design of the study.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sex" type="Sex" maxOccurs="4">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-29: The sex of the study participants.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ageLow" type="Age">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-30: Age of the youngest study participant at time
+                        of inclusion.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ageHigh" type="Age">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-31: Age of the oldest study participant at time
+                        of inclusion.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ageUnit" type="TimeUnit">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-32: Unit defining Age Low and Age High.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dataCategory" type="DataCategory" maxOccurs="8">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-33: The type of data that is associated with the
+                        samples in the study.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="materialType" type="MaterialType" maxOccurs="15">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-34: The biospecimen saved from a biological
+                        entity for propagation e.g. testing, diagnostics,
+                        treatment or research purposes.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="totalNumberOfParticipants" type="xs:positiveInteger">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-35: Total number of individuals recruited to the
+                        study.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="totalNumberOfDonors" type="xs:positiveInteger">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-36:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="inclusionCriteria" type="InclusionCriteria" maxOccurs="12">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="biobanks" type="xs:IDREFS" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sampleCollections" type="xs:IDREFS" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="studies" type="xs:IDREFS" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-:
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
     <xs:complexType name="SampleCollection">
-        <xs:sequence>
-            <xs:element name="sampleCollectionID" type="String"/>
-            <xs:element name="acronym" type="String"/>
-            <xs:element name="name" type="String"/>
-            <xs:element name="description" type="Description"/>
-            <xs:element name="sex" type="Sex" maxOccurs="4"/>
-            <xs:element name="ageLow" type="Age"/>
-            <xs:element name="ageHigh" type="Age"/>
-            <xs:element name="ageUnit" type="TimeUnit"/>
-            <xs:element name="dataCategory" type="DataCategory" maxOccurs="8"/>
-            <xs:element name="materialType" type="MaterialType" maxOccurs="15"/>
-            <xs:element name="storageTemperature" type="Temperature" maxOccurs="6"/>
-            <xs:element name="collectionType" type="CollectionType" maxOccurs="10"/>
-            <xs:element name="diseases" type="xs:IDREFS"/>
-            <xs:element name="contactInformation" type="xs:IDREFS"/>
-            <xs:element name="biobanks" type="xs:IDREFS" minOccurs="0" />
-            <xs:element name="studies" type="xs:IDREFS" minOccurs="0" />
+        <xs:annotation>
+            <xs:documentation>
+                MIABIS Sample Collection.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element name="sampleCollectionID" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-09: Sample Collection ID that also links the
+                        sample collection to the hosting biobank or study.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="acronym" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-10: Short name in use for the sample collection.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-11: The name of the sample collection in english.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="description" type="text">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-12: A description of the sample collection.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sex" type="Sex" maxOccurs="4">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-13: The sex of the individuals in the sample
+                        collection.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ageLow" type="Age">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-14: Age of youngest sample donor at time of
+                        sample donation.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ageHigh" type="Age">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-15: Age of oldest sample donor at time of sample
+                        donation.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ageUnit" type="TimeUnit">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-16: Unit defining Age Low and Age High.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dataCategory" type="DataCategory" maxOccurs="8">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-17: The data catagories from which data is
+                        available.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="materialType" type="MaterialType" maxOccurs="15">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-18: The biospecimen saved from a biological
+                        entity for propagation e.g. testing, diagnostics,
+                        treatment or research purposes.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="storageTemperature" type="Temperature" maxOccurs="6">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-19: The long term storage temperature a
+                        the samples are stored after preparation.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="collectionType" type="CollectionType" maxOccurs="10">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-20: The type of the sample collection.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="diseases" type="xs:IDREFS">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-21: The diseases of main interest in the sample
+                        collection, if any.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="contactInformation" type="xs:IDREFS">
+                <xs:annotation>
+                    <xs:documentation>
+                        MIABIS-22: Contact information to the contact person for
+                        the sample collection MIABIS-07 and MIABIS-22 of the PI.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="biobanks" type="xs:IDREFS">
+                <xs:annotation>
+                    <xs:documentation>
+                        The biobanks that store samples for this collection.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="studies" type="xs:IDREFS">
+                <xs:annotation>
+                    <xs:documentation>
+                        The studies that use samples from this collection.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sampleCollections" type="xs:IDREFS">
+                <xs:annotation>
+                    <xs:documentation>
+                        The subcollections of the sample collection.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="id" type="xs:ID"/>
     </xs:complexType>
 
     <xs:element name="miabis">
+        <xs:annotation>
+            <xs:documentation>
+                Root container for the MIABIS data.
+            </xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="disease" type="Disease" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element name="contactInformation" type="ContactInformation" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element name="researchInformation" type="ResearchInformation" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element name="biobank" type="Biobank" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element name="samplecollection" type="SampleCollection" minOccurs="0" maxOccurs="unbounded"/>
-                <xs:element name="study" type="Study" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="disease" type="Disease"
+                            minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="contactInformation" type="ContactInformation"
+                            minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="researchInformation" type="ResearchInformation"
+                            minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="biobank" type="Biobank"
+                            minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="samplecollection" type="SampleCollection"
+                            minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="study" type="Study"
+                            minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            MIABIS-:
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

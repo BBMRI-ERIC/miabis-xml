@@ -3,8 +3,8 @@
     <disease id="d01">
         <ontology>SNOMED-CT</ontology>
         <code>BIRTH</code>
-        <term>birth</term>
-        <description/>
+        <description>birth</description>
+        <freeText/>
     </disease>
     <contactInformation id="c01">
         <firstname>David</firstname>

@@ -39,7 +39,7 @@ public class UnmarshallerTest {
                     assertFalse(sc.getDiseases().isEmpty(),"Diseases should not be empty.");
                     Disease disease = sc.getDiseases().get(0);
                     assertNotNull(disease.getId(), "The disease ID should not be null");
-                    assertEquals(disease.getTerm(), "birth", "The disease term should match \"birth\"");
+                    assertEquals(disease.getDescription(), "birth", "The disease term should match \"birth\"");
 
                 }
             }

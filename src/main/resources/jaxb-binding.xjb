@@ -98,5 +98,16 @@
                 </jaxb:property>
             </jaxb:bindings>
         </jaxb:bindings>
+        <jaxb:bindings node="xsd:simpleType[@name='Temperature']">
+        	<jaxb:bindings node="xsd:restriction/xsd:enumeration[@value='2&#xB0;C to 10&#xB0;C']">
+        		<jaxb:typesafeEnumMember name="CENTIGRADES_2_TO_10"/>
+        	</jaxb:bindings>
+        	<jaxb:bindings node="xsd:restriction/xsd:enumeration[@value='-18&#xB0;C to -35&#xB0;C']">
+        		<jaxb:typesafeEnumMember name="CENTIGRADES_MIN_18_TO_MIN_35"/>
+        	</jaxb:bindings>
+        	<jaxb:bindings node="xsd:restriction/xsd:enumeration[@value='-60&#xB0;C to -85&#xB0;C']">
+        		<jaxb:typesafeEnumMember name="CENTIGRADES_MIN_60_TO_MIN_85"/>
+        	</jaxb:bindings>
+	    </jaxb:bindings>
     </jaxb:bindings>
 </jaxb:bindings>

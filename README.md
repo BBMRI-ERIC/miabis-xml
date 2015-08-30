@@ -4,13 +4,13 @@ Supplementary data to the article "Towards European Biobank Integration by Commu
 
 ### What is this repository for? ###
 
-This repository contains the XML schema for [MIABIS 2.0](http://bbmri-wiki.wikidot.com/en:dataset).
+This repository contains the XML schema for [MIABIS 2.0](https://github.com/MIABIS/miabis/wiki).
 
 ### How do I get set up? ###
+This repository contains a [Maven](http://maven.apache.org) project that can generate classes for the XML schema of MIABIS. 
 
-This repository contains a [Maven](http://maven.apache.org) project that can generate classes for the XML schema of MIABIS. If you only need the miabis.xsd file it can be found in the subdirectory src/main/resources of the project. In due time the schema will also be published on the [BBMRI ERIC website](http://www.bbmri-eric.eu).
-
-Tool developers can include the MIABIS classes by including the following artifact in their Maven project.
+1. If you need the schema for validating MIABIS XML output you can [download the schema](src/main/resources/miabis.xsd) In due time the schema will also be published on the [BBMRI ERIC website](http://www.bbmri-eric.eu).
+2. If you need ready to use Java classes you can include the MIABIS classes by including the following artifact in your Maven project.
 
 ```
 #!xml
